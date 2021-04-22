@@ -1,12 +1,4 @@
-const standardUser = {
-  username: "standard_user",
-  password: "secret_sauce",
-};
-
-const invalidUser = {
-  username: "standard_user",
-  password: "invalidPassword",
-};
+import { standardUser, invalidUser } from "./users";
 
 const validationMessages = {
   invalidCredentials: /Epic sadface: Username and password do not match any user in this service/i,
