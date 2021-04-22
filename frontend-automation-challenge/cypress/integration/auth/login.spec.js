@@ -14,7 +14,7 @@ const validationMessages = {
 
 describe("Login", () => {
   it("Login with a valid user", () => {
-    cy.visit("https://www.saucedemo.com");
+    cy.visit("/");
     cy.findByPlaceholderText("Username").type(standardUser.username);
     cy.findByPlaceholderText("Password").type(standardUser.password);
     cy.findByRole("button", { name: /login/i }).click();
@@ -22,7 +22,7 @@ describe("Login", () => {
   });
 
   it("Login with a invalid user", () => {
-    cy.visit("https://www.saucedemo.com");
+    cy.visit("/");
     cy.findByPlaceholderText("Username").type(invalidUser.username);
     cy.findByPlaceholderText("Password").type(invalidUser.password);
     cy.findByRole("button", { name: /login/i }).click();
