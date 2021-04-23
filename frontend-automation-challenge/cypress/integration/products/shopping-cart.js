@@ -3,44 +3,29 @@ beforeEach(() => {
 });
 
 describe("shopping cart", () => {
-  it("should add selected items to the cart", function () {
+  it("should add selected items to the shopping cart", function () {
     cy.login();
 
-    cy.get(".inventory_list .inventory_item").as("listItems");
+    const productName = "Sauce Labs Backpack";
 
-    cy.get("@listItems")
-      .first()
-      .get(".inventory_item_description")
-      .findByRole("link")
-      .then(($productNameLink) => {
-        cy.log($productNameLink.text());
+    cy.addToShoppingCart(productName);
 
-        cy.get("@listItems")
-          .first()
-          .get(".inventory_item_description")
-          .findByRole("button")
-          .click();
+    cy.clickShoppingCart();
 
-        cy.get(".shopping_cart_link").click();
-
-        cy.findByText($productNameLink.text()).should("be.visible");
-      });
+    cy.contains(/your cart/i).should("be.visible");
+    cy.contains(productName).should("be.visible");
   });
 
   it("should add Sauce Labs Onesie item to the shopping cart", () => {
     cy.login();
 
-    const product = "Sauce Labs Onesie";
+    const productName = "Sauce Labs Onesie";
 
-    cy.contains(product)
-      .parent()
-      .parent()
-      .findByRole("button", { name: /add to cart/i })
-      .click();
+    cy.addToShoppingCart(productName);
 
-    cy.get(".shopping_cart_link").click();
+    cy.clickShoppingCart();
 
     cy.contains(/your cart/i).should("be.visible");
-    cy.contains(product).should("be.visible");
+    cy.contains(productName).should("be.visible");
   });
 });

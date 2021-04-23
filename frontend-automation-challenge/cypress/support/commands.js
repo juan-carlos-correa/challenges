@@ -41,3 +41,15 @@ Cypress.Commands.add("login", (username, password) => {
     cy.findByRole("button", { name: /login/i }).click();
   });
 });
+
+Cypress.Commands.add("addToShoppingCart", (productName) => {
+  cy.contains(productName)
+    .parent()
+    .parent()
+    .findByRole("button", { name: /add to cart/i })
+    .click();
+});
+
+Cypress.Commands.add("clickShoppingCart", () => {
+  cy.get(".shopping_cart_link").click();
+});
