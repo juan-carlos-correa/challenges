@@ -1,7 +1,3 @@
-beforeEach(() => {
-  cy.fixture("products").as("products");
-});
-
 describe("shopping cart", () => {
   it("should add selected items to the shopping cart", function () {
     cy.login();
