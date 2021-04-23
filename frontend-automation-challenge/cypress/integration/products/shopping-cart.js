@@ -26,4 +26,21 @@ describe("shopping cart", () => {
         cy.findByText($productNameLink.text()).should("be.visible");
       });
   });
+
+  it("should add Sauce Labs Onesie item to the shopping cart", () => {
+    cy.login();
+
+    const product = "Sauce Labs Onesie";
+
+    cy.contains(product)
+      .parent()
+      .parent()
+      .findByRole("button", { name: /add to cart/i })
+      .click();
+
+    cy.get(".shopping_cart_link").click();
+
+    cy.contains(/your cart/i).should("be.visible");
+    cy.contains(product).should("be.visible");
+  });
 });
