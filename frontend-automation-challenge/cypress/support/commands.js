@@ -27,10 +27,17 @@
 import "@testing-library/cypress/add-commands";
 
 Cypress.Commands.add("login", (username, password) => {
-  // Note: this should be an no-UI operation, but the app has not a backend as a way of stub the login
-  // there is no a /login request to stub :(
-  cy.visit("/");
-  cy.findByPlaceholderText("Username").type(username);
-  cy.findByPlaceholderText("Password").type(password);
-  cy.findByRole("button", { name: /login/i }).click();
+  cy.fixture("users").then((users) => {
+    // Note: this should be an no-UI operation, but the app has not a backend as a way of stub the login
+    // there is no a /login request to stub :(
+    if (!username && !password) {
+      username = users.standardUser.username;
+      password = users.standardUser.password;
+    }
+
+    cy.visit("/");
+    cy.findByPlaceholderText("Username").type(username);
+    cy.findByPlaceholderText("Password").type(password);
+    cy.findByRole("button", { name: /login/i }).click();
+  });
 });
